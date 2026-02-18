@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NotizenApp — Sprachnotizen. Intelligent strukturiert.</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: #f5f5f7;
+            color: #1d1d1f;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 40px 20px;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 16px 48px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+        
+        /* Features Section */
+        .features {
+            max-width: 1200px;
+            margin: 100px auto;
+            padding: 0 20px;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 60px;
+            color: #1d1d1f;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 60px;
+            margin-bottom: 100px;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            font-size: 28px;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            color: #1d1d1f;
+        }
+        
+        .feature-card p {
+            color: #6e6e73;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        /* App Preview Section */
+        .app-preview {
+            background: linear-gradient(to bottom, #f5f5f7 0%, #ffffff 100%);
+            padding: 100px 20px;
+        }
+        
+        .preview-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .preview-row {
+            display: flex;
+            align-items: center;
+            gap: 80px;
+            margin-bottom: 100px;
+        }
+        
+        .preview-row:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        
+        .preview-text {
+            flex: 1;
+        }
+        
+        .preview-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #1d1d1f;
+        }
+        
+        .preview-text p {
+            font-size: 1.2rem;
+            color: #6e6e73;
+            line-height: 1.7;
+        }
+        
+        .preview-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .phone-mockup {
+            width: 300px;
+            height: 600px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 40px;
+            padding: 12px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: white;
+            border-radius: 32px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .screen-content {
+            text-align: center;
+        }
+        
+        .mic-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 50px;
+            animation: pulse-mic 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-mic {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .waveform {
+            display: flex;
+            gap: 4px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .wave-bar {
+            width: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+            animation: wave 1.2s ease-in-out infinite;
+        }
+        
+        .wave-bar:nth-child(1) { height: 20px; animation-delay: 0s; }
+        .wave-bar:nth-child(2) { height: 35px; animation-delay: 0.1s; }
+        .wave-bar:nth-child(3) { height: 50px; animation-delay: 0.2s; }
+        .wave-bar:nth-child(4) { height: 35px; animation-delay: 0.3s; }
+        .wave-bar:nth-child(5) { height: 20px; animation-delay: 0.4s; }
+        
+        @keyframes wave {
+            0%, 100% { transform: scaleY(0.5); }
+            50% { transform: scaleY(1); }
+        }
+        
+        .note-preview {
+            background: #f5f5f7;
+            padding: 16px;
+            border-radius: 12px;
+            margin-top: 30px;
+            text-align: left;
+        }
+        
+        .note-preview h4 {
+            font-size: 0.9rem;
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+        
+        .note-preview p {
+            font-size: 0.85rem;
+            color: #1d1d1f;
+            line-height: 1.4;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 100px 20px;
+            text-align: center;
+            color: white;
+        }
+        
+        .cta-section h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+        
+        .download-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .app-store-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 30px;
+            background: rgba(255,255,255,0.2);
+            border: 2px solid white;
+            border-radius: 12px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .app-store-button:hover {
+            background: white;
+            color: #667eea;
+        }
+        
+        /* Footer */
+        footer {
+            background: #1d1d1f;
+            color: #f5f5f7;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        footer p {
+            opacity: 0.7;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1.2rem; }
+            .section-title { font-size: 2rem; }
+            .preview-row {
+                flex-direction: column !important;
+                gap: 40px;
+            }
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>NotizenApp</h1>
+            <p>Sprachnotizen. Intelligent strukturiert. Immer griffbereit.</p>
+            <a href="#download" class="cta-button">Jetzt laden</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <h2 class="section-title">Warum NotizenApp?</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎤</div>
+                <h3>Spracherkennung</h3>
+                <p>Sprechen Sie einfach drauflos — Ihre Gedanken werden in Echtzeit erfasst. Präzise deutsche Spracherkennung, auch offline.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h3>KI-gestützte Strukturierung</h3>
+                <p>Lokale LLM-Integration strukturiert Ihre Notizen automatisch — Überschriften, Stichpunkte, Zusammenfassungen. Alles lokal, alles privat.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>100% Offline & Privat</h3>
+                <p>Ihre Daten bleiben auf Ihrem Gerät. Keine Cloud, keine Server, keine Kompromisse bei der Privatsphäre.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Blitzschnell</h3>
+                <p>Optimiert für iOS — native Performance, minimaler Batterieverbrauch, maximale Reaktionsgeschwindigkeit.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>Clean & Intuitiv</h3>
+                <p>Apple-Design-Prinzipien: Einfach, elegant, fokussiert. Keine Ablenkungen, nur Sie und Ihre Gedanken.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <h3>Smarte Suche</h3>
+                <p>Finden Sie jede Notiz sofort — Volltextsuche, Filterung nach Datum, Tags und automatisch erkannten Themen.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Preview Section -->
+    <section class="app-preview">
+        <div class="preview-container">
+            <div class="preview-row">
+                <div class="preview-text">
+                    <h2>Einfach drauflos sprechen</h2>
+                    <p>Tippen Sie auf das Mikrofon und Ihre Worte werden in Echtzeit transkribiert. Perfekt für unterwegs, beim Autofahren oder wenn die Hände gerade beschäftigt sind.</p>
+                </div>
+                <div class="preview-image">
+                    <div class="phone-mockup">
+                        <div class="phone-screen">
+                            <div class="screen-content">
+                                <div class="mic-icon">🎤</div>
+                                <h3 style="color: #1d1d1f; margin-bottom: 10px;">Aufnahme läuft...</h3>
+                                <div class="waveform">
+                                    <div class="wave-bar"></div>
+                                    <div class="wave-bar"></div>
+                                    <div class="wave-bar"></div>
+                                    <div class="wave-bar"></div>
+                                    <div class="wave-bar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="preview-row">
+                <div class="preview-text">
+                    <h2>Automatisch strukturiert</h2>
+                    <p>Die integrierte KI analysiert Ihre Notiz und erstellt automatisch Überschriften, Stichpunkte und Zusammenfassungen — alles lokal auf Ihrem Gerät.</p>
+                </div>
+                <div class="preview-image">
+                    <div class="phone-mockup">
+                        <div class="phone-screen">
+                            <div class="screen-content">
+                                <div class="note-preview">
+                                    <h4>Einkaufsliste</h4>
+                                    <p>• Milch<br>• Brot<br>• Eier<br>• Käse</p>
+                                </div>
+                                <div class="note-preview">
+                                    <h4>Meeting-Notizen</h4>
+                                    <p><strong>Thema:</strong> Q1 Planung<br><strong>ToDo:</strong> Budget prüfen</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="preview-row">
+                <div class="preview-text">
+                    <h2>Alles im Überblick</h2>
+                    <p>Ihre Notizen übersichtlich organisiert. Suchen, filtern, sortieren — finden Sie jede Notiz in Sekundenschnelle.</p>
+                </div>
+                <div class="preview-image">
+                    <div class="phone-mockup">
+                        <div class="phone-screen" style="padding: 30px 20px; justify-content: flex-start;">
+                            <div style="width: 100%; text-align: left;">
+                                <h3 style="margin-bottom: 20px; color: #1d1d1f;">Meine Notizen</h3>
+                                <div class="note-preview" style="margin-bottom: 12px;">
+                                    <h4>Projektidee: NotizenApp 2.0</h4>
+                                    <p style="font-size: 0.75rem; opacity: 0.7;">Heute, 14:32</p>
+                                </div>
+                                <div class="note-preview" style="margin-bottom: 12px;">
+                                    <h4>Einkaufsliste Wochenende</h4>
+                                    <p style="font-size: 0.75rem; opacity: 0.7;">Gestern, 18:15</p>
+                                </div>
+                                <div class="note-preview">
+                                    <h4>Reiseplanung Dubai & Doha</h4>
+                                    <p style="font-size: 0.75rem; opacity: 0.7;">17.02.2026, 10:20</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="download">
+        <h2>Bereit für die Zukunft der Notizen?</h2>
+        <p>Laden Sie NotizenApp jetzt kostenlos und erleben Sie, wie einfach Notizen sein können.</p>
+        <div class="download-buttons">
+            <a href="#" class="app-store-button">
+                <span style="font-size: 24px;">📱</span>
+                <div style="text-align: left;">
+                    <div style="font-size: 0.7rem; opacity: 0.8;">Laden im</div>
+                    <div>App Store</div>
+                </div>
+            </a>
+            <a href="https://github.com/sebastiansbutleralbert-lgtm/NotizenApp" class="app-store-button">
+                <span style="font-size: 24px;">💻</span>
+                <div style="text-align: left;">
+                    <div style="font-size: 0.7rem; opacity: 0.8;">Open Source auf</div>
+                    <div>GitHub</div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 NotizenApp. Entwickelt mit ❤️ für iOS.</p>
+        <p style="margin-top: 10px; font-size: 0.9rem;">100% privat. 100% offline. 100% Ihr Eigentum.</p>
+    </footer>
+</body>
+</html>
